@@ -2,20 +2,20 @@
 title Authorization Code Grant
 autonumber
 User -> Website: Click the Login link
-Website -> Auth_Server: A Request for authorization code.
-Auth_Server -> User: Present user with a Login page
-User -> Auth_Server: User logs in
-Auth_Server -> User: Present Consent Page
-User -> Auth_Server: User authorizes website to access the requested information
+Website -> "Auth Server": A Request for authorization code.
+"Auth Server" -> User: Present user with a Login page
+User -> "Auth Server": User logs in
+"Auth Server" -> User: Present Consent Page
+User -> "Auth Server": User authorizes website to access the requested information
 
-Auth_Server -> Website: Authorization code
-note over Auth_Server, Website
+"Auth Server" -> Website: Authorization code
+note over "Auth Server", Website
 Redirect to http://localhost:8083/callback?code=aaaaa...
 end note
-Website -> Auth_Server: Exchange Authorization Code for an Access Token
-note over Auth_Server, Website
+Website -> "Auth Server": Exchange Authorization Code for an Access Token
+note over "Auth Server", Website
 HTTP POST /token + Code + Client ID + Client Secret
 end note
-Auth_Server -> Website: Response with an Access Token + Refresh Token
-Website -> Resource_Server: Request user data with Access Token
+"Auth Server" -> Website: Response with an Access Token + Refresh Token
+Website -> "Resource Server": Request user data with Access Token
 @enduml
