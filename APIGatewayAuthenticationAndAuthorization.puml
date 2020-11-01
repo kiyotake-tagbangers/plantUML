@@ -1,0 +1,22 @@
+@startuml
+title Resourse server behind API Gateway
+autonumber
+'分類子の表示位置を定義
+participant User
+participant "Client Application"
+participant "Spring Cloud API_Gateway"
+participant "Identity Provider"
+participant "Microservice A"
+
+User -> "Client Application": Request a resource
+"Client Application" -> "Spring Cloud API_Gateway": Request to Microservice A
+"Client Application" -> "Microservice A": Route to Microservice A
+"Microservice A" -> "Identity Provider": Validate Access Token
+"Microservice A" -> "Client Application": 401 Unauthorized
+User -> "Identity Provider": User authentication
+"Identity Provider" -> "Client Application": Return Access Token
+"Client Application" -> "Spring Cloud API_Gateway": Request to Microservice A + Access Token
+"Spring Cloud API_Gateway" -> "Microservice A": Route to Microservice A
+"Microservice A" -> "Identity Provider": Validate Access token
+"Microservice A" -> "Microservice A": Validate Method Level Security Expressions
+@enduml
