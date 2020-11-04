@@ -1,0 +1,21 @@
+@startuml
+title Authorization Code Grant
+autonumber
+
+Client -> "Auth Server(Keycloak)": A Request for authorization code.
+"Auth Server(Keycloak)" -> Client: Present user with a Login page
+Client -> "Auth Server(Keycloak)": Client logs in as "sample" user
+
+"Auth Server(Keycloak)" -> Client: Authorization code
+note over "Auth Server(Keycloak)", Client
+Redirect to http://localhost:8083/callback?code=aaaaa...
+end note
+
+Client -> "Auth Server(Keycloak)": Exchange Authorization Code for an Access Token
+note over "Auth Server(Keycloak)", Client
+HTTP POST /token + Code + Client ID + Client Secret
+end note
+
+"Auth Server(Keycloak)" -> Client: Response with an Access Token + Refresh Token
+Client -> "Resource Server": Request user data with Access Token
+@enduml
