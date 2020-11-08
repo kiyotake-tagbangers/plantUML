@@ -1,0 +1,20 @@
+@startuml
+title Authorization Code Flow
+autonumber
+
+"Relying_Party(RP)" -> "IdP(Keycloak)": A Request for authorization code.
+note right: Authorization Endpoint
+"IdP(Keycloak)" -> "Relying_Party(RP)": Present user with a Login page
+"Relying_Party(RP)" -> "IdP(Keycloak)": "Relying_Party(RP)" logs in as "sample" user
+
+"IdP(Keycloak)" -> "Relying_Party(RP)": Authorization code
+note left: Redirect URI
+
+"Relying_Party(RP)" -> "IdP(Keycloak)": Exchange Authorization Code for an Access Token
+note right: Token Endpoint
+
+"IdP(Keycloak)" -> "Relying_Party(RP)": Response with an Access Token + Refresh Token + ID Token
+"Relying_Party(RP)" -> "Relying_Party(RP)": Verify ID Token
+"Relying_Party(RP)" -> "UserInfo Endpoint": Request user data with Access Token
+"UserInfo Endpoint" -> "Relying_Party(RP)": Response user data
+@enduml
